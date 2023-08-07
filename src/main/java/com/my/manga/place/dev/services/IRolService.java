@@ -10,6 +10,6 @@ public interface IRolService {
     public RolDTO findRolById(Long id);
     public List<RolDTO> findAllRoles();
     public void deleteRolById(Long id);
-    public RolDTO updateUserById(Long id, RolRequest rolRequest);
+    public RolDTO updateRolById(Long id, RolRequest rolRequest);
 
 }

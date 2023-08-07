@@ -45,7 +45,7 @@ public class RolServiceImpl implements IRolService {
         this.rolRepository.deleteById(id);
     }
     @Override
-    public RolDTO updateUserById(Long id, RolRequest rolRequest) {
+    public RolDTO updateRolById(Long id, RolRequest rolRequest) {
         Optional<Rol> rolExists = this.rolRepository.findByName(rolRequest.getName());
         rolExists.orElseThrow(() -> new RolException(this.messageService.getMessageProperty("rol.not.found")));
         RolDTO rolDTO = new RolDTO();
