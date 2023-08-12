@@ -25,7 +25,6 @@ public class User {
     private Date createdAt;
     @Column(name = "deleted")
     private Boolean deleted;
-
     public User() {
     }
     public User(Long id, String name, String surname, String username,
@@ -114,6 +113,7 @@ public class User {
     @PrePersist
     public void init(){
         this.createdAt = new Date();
+        this.deleted = Boolean.FALSE;
     }
 
 }

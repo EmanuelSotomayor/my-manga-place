@@ -26,7 +26,6 @@ public class RolController {
     public ResponseEntity<List<RolDTO>> findAllRoles(){
         return ResponseEntity.status(HttpStatus.FOUND).body(this.rolService.findAllRoles());
     }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteRolById(@PathVariable Long id){
         this.rolService.deleteRolById(id);

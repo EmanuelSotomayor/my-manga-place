@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ObjectMapperConfiguration {
     @Bean
-    private ObjectMapper objectMapper(){
+    public ObjectMapper objectMapper(){
         return new ObjectMapper();
     }
 

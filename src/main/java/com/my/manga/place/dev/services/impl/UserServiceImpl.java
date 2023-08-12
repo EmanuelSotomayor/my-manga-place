@@ -3,11 +3,12 @@ package com.my.manga.place.dev.services.impl;
 import com.my.manga.place.dev.dtos.UserDTO;
 import com.my.manga.place.dev.entities.User;
 import com.my.manga.place.dev.exceptions.UserException;
-import com.my.manga.place.dev.repositories.UserRepository;
+import com.my.manga.place.dev.repository.UserRepository;
 import com.my.manga.place.dev.requests.UserRequest;
 import com.my.manga.place.dev.services.IMessageService;
 import com.my.manga.place.dev.services.IUserService;
-import com.my.manga.place.dev.utils.UserMapperUtil;
+import com.my.manga.place.dev.utils.builders.impl.UserDTOBuilder;
+import com.my.manga.place.dev.utils.mappers.UserMapperUtil;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -48,18 +49,23 @@ public class UserServiceImpl implements IUserService {
     public UserDTO updateUserById(Long id, UserRequest userRequest) {
         Optional<User> userExists = this.userRepository.findById(id);
         userExists.orElseThrow(() -> new UserException(this.messageService.getMessageProperty("user.not.found")));
-        UserDTO userDTO = new UserDTO();
-        userDTO.setId(userExists.get().getId());
-        userDTO.setName(userRequest.getName());
-        userDTO.setSurname(userRequest.getSurname());
-        userDTO.setUsername(userRequest.getUsername());
-        userDTO.setPassword(userRequest.getPassword());
-        userDTO.setEmail(userExists.get().getEmail());
-        userDTO.setPassword(userExists.get().getPassword());
-        userDTO.setDeleted(userExists.get().getDeleted());
-        userDTO.setCreatedAt(userExists.get().getCreatedAt());
-        this.userRepository.save(UserMapperUtil.userDTOtoUserEntity(userDTO));
+
+        userExists.get().setName(userRequest.getName());
+        userExists.get().setSurname(userRequest.getSurname());
+        userExists.get().setUsername(userRequest.getUsername());
+        userExists.get().setPassword(userRequest.getPassword());
+
+        UserDTO userDTO = UserDTOBuilder.builder()
+                .name(userRequest.getName())
+                .surname(userRequest.getSurname())
+                .username(userRequest.getUsername())
+                .password(userRequest.getPassword())
+                .email(userExists.get().getEmail())
+                .build();
+
+        this.userRepository.save(userExists.get());
         return userDTO;
+
     }
 
 }

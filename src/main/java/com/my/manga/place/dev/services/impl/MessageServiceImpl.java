@@ -5,9 +5,9 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import java.util.Locale;
 @Service
-public class MessageService implements IMessageService {
+public class MessageServiceImpl implements IMessageService {
     private final MessageSource messageSource;
-    public MessageService(MessageSource messageSource){
+    public MessageServiceImpl(MessageSource messageSource){
         this.messageSource = messageSource;
     }
     @Override

@@ -1,4 +1,4 @@
-package com.my.manga.place.dev.repositories;
+package com.my.manga.place.dev.repository;
 
 import com.my.manga.place.dev.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;

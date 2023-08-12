@@ -1,4 +1,4 @@
-package com.my.manga.place.dev.utils;
+package com.my.manga.place.dev.utils.mappers;
 
 import com.my.manga.place.dev.dtos.RolDTO;
 import com.my.manga.place.dev.entities.Rol;
@@ -9,14 +9,12 @@ import java.util.stream.Collectors;
 public class RolMapperUtil {
     public static Rol rolDTOtoRolEntity(RolDTO rolDTO){
         Rol rol = new Rol();
-        rol.setId(rol.getId());
-        rol.setName(rol.getName());
-        rol.setDescription(rol.getDescription());
+        rol.setName(rolDTO.getName());
+        rol.setDescription(rolDTO.getDescription());
         return rol;
     }
     public static RolDTO rolEntityToRolDTO(Rol rol){
         RolDTO rolDTO = new RolDTO();
-        rolDTO.setId(rol.getId());
         rolDTO.setName(rol.getName());
         rolDTO.setDescription(rol.getDescription());
         return rolDTO;

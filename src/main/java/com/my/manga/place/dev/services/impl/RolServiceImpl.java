@@ -3,11 +3,12 @@ package com.my.manga.place.dev.services.impl;
 import com.my.manga.place.dev.dtos.RolDTO;
 import com.my.manga.place.dev.entities.Rol;
 import com.my.manga.place.dev.exceptions.RolException;
-import com.my.manga.place.dev.repositories.RolRepository;
+import com.my.manga.place.dev.repository.RolRepository;
 import com.my.manga.place.dev.requests.RolRequest;
 import com.my.manga.place.dev.services.IMessageService;
 import com.my.manga.place.dev.services.IRolService;
-import com.my.manga.place.dev.utils.RolMapperUtil;
+import com.my.manga.place.dev.utils.builders.impl.RolDTOBuilder;
+import com.my.manga.place.dev.utils.mappers.RolMapperUtil;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -46,13 +47,18 @@ public class RolServiceImpl implements IRolService {
     }
     @Override
     public RolDTO updateRolById(Long id, RolRequest rolRequest) {
-        Optional<Rol> rolExists = this.rolRepository.findByName(rolRequest.getName());
+        Optional<Rol> rolExists = this.rolRepository.findById(id);
         rolExists.orElseThrow(() -> new RolException(this.messageService.getMessageProperty("rol.not.found")));
-        RolDTO rolDTO = new RolDTO();
-        rolDTO.setId(rolExists.get().getId());
-        rolDTO.setName(rolRequest.getName());
-        rolDTO.setDescription(rolRequest.getDescription());
-        this.rolRepository.save(RolMapperUtil.rolDTOtoRolEntity(rolDTO));
+
+        rolExists.get().setName(rolRequest.getName());
+        rolExists.get().setDescription(rolRequest.getDescription());
+
+        RolDTO rolDTO = RolDTOBuilder.builder()
+                .name(rolRequest.getName())
+                .description(rolRequest.getDescription())
+                .build();
+
+        this.rolRepository.save(rolExists.get());
         return rolDTO;
     }
 
