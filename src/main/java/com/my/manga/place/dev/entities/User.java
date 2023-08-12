@@ -25,10 +25,12 @@ public class User {
     private Date createdAt;
     @Column(name = "deleted")
     private Boolean deleted;
+    @OneToOne(targetEntity = Image.class, fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "image_id")
+    private Image image;
     public User() {
     }
-    public User(Long id, String name, String surname, String username,
-                String email, String password, Date createdAt, Boolean deleted) {
+    public User(Long id, String name, String surname, String username, String email, String password, Date createdAt, Boolean deleted, Image image) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -37,6 +39,7 @@ public class User {
         this.password = password;
         this.createdAt = createdAt;
         this.deleted = deleted;
+        this.image = image;
     }
     public Long getId() {
         return id;
@@ -86,6 +89,12 @@ public class User {
     public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
     }
+    public Image getImage() {
+        return image;
+    }
+    public void setImage(Image image) {
+        this.image = image;
+    }
     @Override
     public String toString() {
         return "User{" +
@@ -97,6 +106,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", createdAt=" + createdAt +
                 ", deleted=" + deleted +
+                ", image=" + image +
                 '}';
     }
     @Override
@@ -104,11 +114,11 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(surname, user.surname) && Objects.equals(username, user.username) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(createdAt, user.createdAt) && Objects.equals(deleted, user.deleted);
+        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(surname, user.surname) && Objects.equals(username, user.username) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(createdAt, user.createdAt) && Objects.equals(deleted, user.deleted) && Objects.equals(image, user.image);
     }
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, surname, username, email, password, createdAt, deleted);
+        return Objects.hash(id, name, surname, username, email, password, createdAt, deleted, image);
     }
     @PrePersist
     public void init(){
