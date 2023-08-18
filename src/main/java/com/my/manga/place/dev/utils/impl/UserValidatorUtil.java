@@ -1,7 +1,7 @@
 package com.my.manga.place.dev.utils.impl;
 
 import com.my.manga.place.dev.entities.User;
-import com.my.manga.place.dev.exceptions.UserParamException;
+import com.my.manga.place.dev.exceptions.ParamException;
 import com.my.manga.place.dev.services.IMessageService;
 import com.my.manga.place.dev.utils.IValidatorUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -49,7 +49,7 @@ public class UserValidatorUtil<T> implements IValidatorUtil<T> {
         if(bindingResult.hasErrors()){
             /*El primer parámetro queda nulo porque no le pasamos ningún parametro de método,
             directamente le pasamos los errores que almacenamos de los atributos que no cumplen las condiciones*/
-            throw new UserParamException(null, bindingResult);
+            throw new ParamException(null, bindingResult);
         }
 
     }

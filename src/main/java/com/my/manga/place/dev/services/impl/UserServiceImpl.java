@@ -11,8 +11,10 @@ import com.my.manga.place.dev.services.IMessageService;
 import com.my.manga.place.dev.services.IUserService;
 import com.my.manga.place.dev.utils.builders.impl.UserDTOBuilder;
 import com.my.manga.place.dev.utils.impl.ObjectMapperUtil;
+import com.my.manga.place.dev.utils.impl.UserValidatorUtil;
 import com.my.manga.place.dev.utils.mappers.UserMapperUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
@@ -32,7 +34,7 @@ public class UserServiceImpl implements IUserService {
         this.imageService = imageService;
     }
     @Override
-    public UserDTO saveUser(UserDTO userDTO, MultipartFile file) throws IOException {
+    public UserDTO saveUser(UserDTO userDTO, MultipartFile file) throws IOException, MethodArgumentNotValidException {
 
         Optional<User> userExists = this.userRepository.findUserByEmail(userDTO.getEmail());
             if(userExists.isPresent()){
@@ -40,6 +42,8 @@ public class UserServiceImpl implements IUserService {
             }
 
         User userEntity = UserMapperUtil.userDTOtoUserEntity(userDTO);
+        userEntity.setIValidatorUtil(new UserValidatorUtil<User>(this.messageService));
+        userEntity.getIValidatorUtil().validate(userEntity);
 
         Image savedImage = this.imageService.saveImage(file);
 

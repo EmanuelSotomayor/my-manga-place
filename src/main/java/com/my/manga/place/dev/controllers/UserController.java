@@ -8,6 +8,7 @@ import com.my.manga.place.dev.utils.impl.ObjectMapperUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
@@ -38,7 +39,7 @@ public class UserController {
     * */
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<UserDTO> saveUser(@RequestPart("userDTO") String userDTO,
-                                            @RequestPart("file") MultipartFile file) throws JsonProcessingException, IOException {
+                                            @RequestPart("file") MultipartFile file) throws JsonProcessingException, IOException, MethodArgumentNotValidException {
         UserDTO userDTOParsed = (UserDTO) this.objectMapperUtil.parseStringToObject(userDTO, UserDTO.class);
         return ResponseEntity.status(HttpStatus.CREATED).body(this.userService.saveUser(userDTOParsed, file));
     }

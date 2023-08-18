@@ -1,17 +1,19 @@
 package com.my.manga.place.dev.dtos;
 import org.springframework.http.HttpStatus;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 public class APIError {
     private HttpStatus status;
     private List<ValidationErrorDTO> errorFields;
-    private Calendar date;
+    private String actualDate;
     public APIError(){}
     public APIError(HttpStatus status, List<ValidationErrorDTO> errorFields){
         this.status = status;
         this.errorFields = errorFields;
-        this.date = this.getDate();
+        this.actualDate = this.getActualDate();
     }
     public HttpStatus getStatus() {
         return status;
@@ -25,13 +27,14 @@ public class APIError {
     public void setErrorFields(List<ValidationErrorDTO> errorFields) {
         this.errorFields = errorFields;
     }
-    public void setDate(Calendar date) {
-        this.date = date;
+    public void setActualDate(String actualDate) {
+        this.actualDate = actualDate;
     }
-    public Calendar getDate(){
+    public String getActualDate(){
         Calendar date = Calendar.getInstance();
         date.setTime(new Date());
-        return Calendar.getInstance();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        return formatter.format(date.getTime());
     }
 
 }

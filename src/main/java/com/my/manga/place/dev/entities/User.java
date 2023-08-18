@@ -1,5 +1,6 @@
 package com.my.manga.place.dev.entities;
 
+import com.my.manga.place.dev.utils.IValidatorUtil;
 import jakarta.persistence.*;
 import java.util.Date;
 import java.util.Objects;
@@ -28,6 +29,8 @@ public class User {
     @OneToOne(targetEntity = Image.class, fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "image_id")
     private Image image;
+    @Transient
+    IValidatorUtil iValidatorUtil;
     public User() {
     }
     public User(Long id, String name, String surname, String username, String email, String password, Date createdAt, Boolean deleted, Image image) {
@@ -94,6 +97,12 @@ public class User {
     }
     public void setImage(Image image) {
         this.image = image;
+    }
+    public void setIValidatorUtil(IValidatorUtil iValidatorUtil){
+        this.iValidatorUtil = iValidatorUtil;
+    }
+    public IValidatorUtil getIValidatorUtil(){
+        return this.iValidatorUtil = iValidatorUtil;
     }
     @Override
     public String toString() {

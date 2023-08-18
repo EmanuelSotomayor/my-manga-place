@@ -5,7 +5,6 @@ import com.my.manga.place.dev.utils.IObjectMapperUtil;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
-
 @Component
 public class ObjectMapperUtil<T, S> implements IObjectMapperUtil<T, S> {
     private final ObjectMapper objectMapper;
@@ -15,10 +14,6 @@ public class ObjectMapperUtil<T, S> implements IObjectMapperUtil<T, S> {
     @Override
     public HttpEntity<String> parseObjectToJsonString(S s, HttpHeaders headers) throws JsonProcessingException {
          return new HttpEntity<String>(objectMapper.writeValueAsString(s), headers);
-    }
-    @Override
-    public T parseGenericJsonToObject(S s, Class<?> clazz) throws JsonProcessingException {
-        return null;
     }
     @Override
     public T parseStringToObject(String data, Class<?> clazz) throws JsonProcessingException {

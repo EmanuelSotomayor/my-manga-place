@@ -4,8 +4,8 @@ import org.springframework.core.MethodParameter;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
-public class UserParamException extends MethodArgumentNotValidException {
-    public UserParamException(MethodParameter parameter, BindingResult bindingResult){
+public class ParamException extends MethodArgumentNotValidException {
+    public ParamException(MethodParameter parameter, BindingResult bindingResult){
         super(parameter, bindingResult);
     }
 

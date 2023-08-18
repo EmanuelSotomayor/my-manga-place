@@ -2,7 +2,7 @@ package com.my.manga.place.dev.controllers;
 
 import com.my.manga.place.dev.dtos.APIError;
 import com.my.manga.place.dev.dtos.ValidationErrorDTO;
-import com.my.manga.place.dev.exceptions.UserParamException;
+import com.my.manga.place.dev.exceptions.ParamException;
 import com.my.manga.place.dev.utils.builders.impl.APIErrorBuilder;
 import com.my.manga.place.dev.utils.builders.impl.ValidationErrorBuilder;
 import org.springframework.http.HttpStatus;
@@ -16,9 +16,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 @RestControllerAdvice
 public class ExceptionHandlerController {
-    @ExceptionHandler(value = UserParamException.class)
+    @ExceptionHandler(value = ParamException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public ResponseEntity<APIError> handleInvalidArguments(UserParamException ex){
+    public ResponseEntity<APIError> handleInvalidArguments(ParamException ex){
         List<ValidationErrorDTO> errors = ex.getBindingResult()
                 .getFieldErrors().stream()
                 .map(error -> this.mapError(error))
