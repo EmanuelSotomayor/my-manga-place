@@ -38,25 +38,30 @@ public class UserController {
     * @return UserDTO
     * */
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    @CrossOrigin(origins = "${cross.origin}", allowedHeaders = "*")
     public ResponseEntity<UserDTO> saveUser(@RequestPart("userDTO") String userDTO,
                                             @RequestPart("file") MultipartFile file) throws JsonProcessingException, IOException, MethodArgumentNotValidException {
         UserDTO userDTOParsed = (UserDTO) this.objectMapperUtil.parseStringToObject(userDTO, UserDTO.class);
         return ResponseEntity.status(HttpStatus.CREATED).body(this.userService.saveUser(userDTOParsed, file));
     }
     @GetMapping("/{id}")
+    @CrossOrigin(origins = "${cross.origin}", allowedHeaders = "*")
     public ResponseEntity<UserDTO> findUserById(@PathVariable Long id){
         return ResponseEntity.status(HttpStatus.FOUND).body(this.userService.findUserById(id));
     }
     @GetMapping
+    @CrossOrigin(origins = "${cross.origin}", allowedHeaders = "*")
     public ResponseEntity<List<UserDTO>> findAllUsers(){
         return ResponseEntity.status(HttpStatus.FOUND).body(this.userService.findAllUsers());
     }
     @DeleteMapping("/{id}")
+    @CrossOrigin(origins = "${cross.origin}", allowedHeaders = "*")
     public ResponseEntity<?> deleteUserById(@PathVariable Long id){
         this.userService.deleteUserById(id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
     @PutMapping("/{id}")
+    @CrossOrigin(origins = "${cross.origin}", allowedHeaders = "*")
     public ResponseEntity<UserDTO> updateUserById(@PathVariable Long id, @RequestBody UserRequest userRequest){
         return ResponseEntity.status(HttpStatus.OK).body(this.userService.updateUserById(id, userRequest));
     }

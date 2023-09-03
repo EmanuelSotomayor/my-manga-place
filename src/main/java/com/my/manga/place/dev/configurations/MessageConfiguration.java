@@ -14,6 +14,21 @@ public class MessageConfiguration {
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }
+
+    /**
+     * Se encarga de configurar un bean de validación local
+     * utilizando LocalValidatorFactoryBean y vinculándolo con una
+     * fuente de mensajes de validación configurada a través del método messageSource().
+     * Este bean de validación se puede inyectar en otras partes de la aplicación
+     * para llevar a cabo la validación de los datos ingresados en formularios
+     * u otras interacciones.
+     *
+     * @return Retorna un objeto del tipo LocalValidatorFactoryBean
+     * para registrarse en el contenedor de beans y poder utilizar las propiedades
+     * que contienen mensajes en el messages.properties para así mostrarlos
+     * en los errores de validación
+     * @author Emanuel Sotomayor
+     */
     @Bean
     public LocalValidatorFactoryBean getValidator() {
         LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();

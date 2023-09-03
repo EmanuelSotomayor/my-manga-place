@@ -2,7 +2,6 @@ package com.my.manga.place.dev.entities;
 
 import jakarta.persistence.*;
 import java.util.Objects;
-
 @Entity
 @Table(name = "user_rol")
 public class UserRol {
